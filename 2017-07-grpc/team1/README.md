@@ -3,4 +3,4 @@
 Compile the protcol buffers using:
 
     # cd pb/say
-    # protoc --go_out=plugins=grpc:. say.proto
+    # protoc -I . say.proto --go_out=plugins=grpc:.
