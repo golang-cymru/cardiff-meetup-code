@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net"
+	"os/exec"
 
 	pb "github.com/golang-cymru/cardiff-meetup-code/2017-07-grpc/team2/speak"
 	"golang.org/x/net/context"
@@ -20,6 +21,17 @@ type server struct{}
 // SayHello implements helloworld.GreeterServer
 func (s *server) SaySomething(ctx context.Context, in *pb.SpeakEvent) (*pb.Empty, error) {
 	log.Println("In SaySomething")
+	log.Printf("Want to say[%s]", in.GetSpeech())
+	var args []string
+
+	if v := in.GetVoice(); len(v) > 0 {
+		args = append(args, "-v", v)
+	}
+
+	args = append(args, in.GetSpeech())
+	if err := exec.Command("/usr/bin/say", args...).Run(); err != nil {
+		return nil, err
+	}
 	return &pb.Empty{}, nil
 }
 
