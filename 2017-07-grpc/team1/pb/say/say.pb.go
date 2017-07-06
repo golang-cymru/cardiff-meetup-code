@@ -81,7 +81,7 @@ func RegisterTextToSpeechServer(s *grpc.Server, srv TextToSpeechServer) {
 	s.RegisterService(&_TextToSpeech_serviceDesc, srv)
 }
 
-func _TextToSpeech_SaySomething_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
+func _TextToSpeech_SaySomething_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Something)
 	if err := dec(in); err != nil {
 		return nil, err
