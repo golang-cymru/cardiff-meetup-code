@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package say
+package say;
 
 
 service TextToSpeech {
@@ -14,6 +14,6 @@ message Something {
 
 
 message Result {
-    bytes audio
+    bytes audio = 1;
 }
 
