@@ -4,7 +4,7 @@ package speak;
 
 service SpeakService {
     rpc SaySomething (SpeakEvent) returns (Empty) {}
-    rpc GetVoices (Empty) return (VoiceResponse) {}
+    rpc GetVoices (Empty) returns (VoiceResponse) {}
 }
 
 message SpeakEvent {
