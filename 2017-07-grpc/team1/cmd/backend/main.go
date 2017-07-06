@@ -1,6 +1,7 @@
 package main
 
 import (
+	"io/ioutil"
 	"log"
 	"net"
 	"os/exec"
@@ -26,7 +27,13 @@ func (s *server) SaySomething(ctx context.Context, in *pb.Something) (*pb.Result
 	if err != nil {
 		log.Fatal(err)
 	}
-	return &pb.Result{Audio: []byte{}}, nil
+
+	b, err := ioutil.ReadFile("said.aiff")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return &pb.Result{Audio: b}, nil
 }
 
 func main() {
