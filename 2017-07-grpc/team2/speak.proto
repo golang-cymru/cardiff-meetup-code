@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package speak;
+
+service SpeakService {
+    rpc SaySomething (SpeakEvent) returns (Empty) {}
+    rpc GetVoices (Empty) return (VoiceResponse) {}
+}
+
+message SpeakEvent {
+    string speech     = 1;
+    string voice      = 2;
+    int64  speechRate = 3;
+}
+
+message SpeakResponse {
+    int64  result  = 1;
+    string message = 2;
+}
+
+message VoiceResponse {
+    repeated string voices = 1;
+}
+
+message Empty {
+}
