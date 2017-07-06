@@ -20,6 +20,11 @@ import proto "github.com/golang/protobuf/proto"
 import fmt "fmt"
 import math "math"
 
+import (
+	context "golang.org/x/net/context"
+	grpc "google.golang.org/grpc"
+)
+
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
 var _ = fmt.Errorf
@@ -116,6 +121,111 @@ func init() {
 	proto.RegisterType((*SpeakResponse)(nil), "speak.SpeakResponse")
 	proto.RegisterType((*VoiceResponse)(nil), "speak.VoiceResponse")
 	proto.RegisterType((*Empty)(nil), "speak.Empty")
+}
+
+// Reference imports to suppress errors if they are not otherwise used.
+var _ context.Context
+var _ grpc.ClientConn
+
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+const _ = grpc.SupportPackageIsVersion4
+
+// Client API for SpeakService service
+
+type SpeakServiceClient interface {
+	SaySomething(ctx context.Context, in *SpeakEvent, opts ...grpc.CallOption) (*Empty, error)
+	GetVoices(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*VoiceResponse, error)
+}
+
+type speakServiceClient struct {
+	cc *grpc.ClientConn
+}
+
+func NewSpeakServiceClient(cc *grpc.ClientConn) SpeakServiceClient {
+	return &speakServiceClient{cc}
+}
+
+func (c *speakServiceClient) SaySomething(ctx context.Context, in *SpeakEvent, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := grpc.Invoke(ctx, "/speak.SpeakService/SaySomething", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *speakServiceClient) GetVoices(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*VoiceResponse, error) {
+	out := new(VoiceResponse)
+	err := grpc.Invoke(ctx, "/speak.SpeakService/GetVoices", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// Server API for SpeakService service
+
+type SpeakServiceServer interface {
+	SaySomething(context.Context, *SpeakEvent) (*Empty, error)
+	GetVoices(context.Context, *Empty) (*VoiceResponse, error)
+}
+
+func RegisterSpeakServiceServer(s *grpc.Server, srv SpeakServiceServer) {
+	s.RegisterService(&_SpeakService_serviceDesc, srv)
+}
+
+func _SpeakService_SaySomething_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SpeakEvent)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SpeakServiceServer).SaySomething(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/speak.SpeakService/SaySomething",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SpeakServiceServer).SaySomething(ctx, req.(*SpeakEvent))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SpeakService_GetVoices_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SpeakServiceServer).GetVoices(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/speak.SpeakService/GetVoices",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SpeakServiceServer).GetVoices(ctx, req.(*Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _SpeakService_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "speak.SpeakService",
+	HandlerType: (*SpeakServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "SaySomething",
+			Handler:    _SpeakService_SaySomething_Handler,
+		},
+		{
+			MethodName: "GetVoices",
+			Handler:    _SpeakService_GetVoices_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "speak.proto",
 }
 
 func init() { proto.RegisterFile("speak.proto", fileDescriptor0) }
