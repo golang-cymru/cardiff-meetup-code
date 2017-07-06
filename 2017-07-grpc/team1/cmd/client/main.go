@@ -4,6 +4,7 @@ import (
 	"flag"
 	"log"
 	"os"
+        "os/exec"
 
 	"github.com/golang-cymru/cardiff-meetup-code/2017-07-grpc/team1/pb/say"
 	context "golang.org/x/net/context"
@@ -49,6 +50,10 @@ func main() {
 		log.Fatalf("error writing audio bytes: %s", err)
 	}
 
-	// TODO:
-	// run cmd.Exec with afplay
+        
+        cmd := exec.Command("/usr/bin/afplay", "-i", filename)
+        c_err := cmd.Run()
+        if (c_err != nil) {
+            log.Fatal("Couldn't issue command.")
+        }
 }
