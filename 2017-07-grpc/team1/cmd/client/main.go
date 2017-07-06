@@ -51,9 +51,9 @@ func main() {
 	}
 
         
-        cmd := exec.Command("/usr/bin/afplay", "-i", filename)
+        cmd := exec.Command("/usr/bin/afplay", filename)
         c_err := cmd.Run()
         if (c_err != nil) {
-            log.Fatal("Couldn't issue command.")
+            log.Fatal("Couldn't issue command.", c_err)
         }
 }
