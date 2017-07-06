@@ -18,6 +18,7 @@ func main() {
 	conn, err := grpc.Dial(*backend, grpc.WithInsecure())
 	if err != nil {
 		log.Panic(err)
+		return
 	}
 
 	defer conn.Close()
@@ -29,7 +30,10 @@ func main() {
 		Message: *message,
 	}
 
-	result := client.SaySomething(ctx, something)
+	result, err := client.SaySomething(ctx, something)
+	if err != nil {
+		log.Fatalf("error returned from say something backend: %s", err)
+	}
 
 	// TODO:
 	// use bytes from result, store in file
