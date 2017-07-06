@@ -3,10 +3,15 @@ package main
 import (
 	"flag"
 	"log"
+	"os"
 
 	"github.com/golang-cymru/cardiff-meetup-code/2017-07-grpc/team1/pb/say"
 	context "golang.org/x/net/context"
 	"google.golang.org/grpc"
+)
+
+const (
+	filename = "/tmp/temp-say-file"
 )
 
 func main() {
@@ -35,7 +40,15 @@ func main() {
 		log.Fatalf("error returned from say something backend: %s", err)
 	}
 
+	file, err := os.Create(filename)
+	if err != nil {
+		log.Fatalf("error creating file for writing audio response: %s", err)
+	}
+
+	if _, err := file.Write(result.Audio); err != nil {
+		log.Fatalf("error writing audio bytes: %s", err)
+	}
+
 	// TODO:
-	// use bytes from result, store in file
 	// run cmd.Exec with afplay
 }
