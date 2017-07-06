@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	port = ":50051"
+	port = ":8888"
 )
 
 // server is the server
@@ -20,7 +20,8 @@ type server struct{}
 
 // SaySomething does what it says
 func (s *server) SaySomething(ctx context.Context, in *pb.Something) (*pb.Result, error) {
-	cmd := exec.Command("say", "Hello "+in.Message)
+	log.Println("Saying something: " + in.Message)
+	cmd := exec.Command("say", in.Message, "-o", "said.aiff")
 	err := cmd.Run()
 	if err != nil {
 		log.Fatal(err)
