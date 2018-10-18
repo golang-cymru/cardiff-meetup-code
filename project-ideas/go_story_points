@@ -1,0 +1,26 @@
+# Proposal: Go Story Points
+
+Author(s): Rich_V
+
+## Abstract
+
+Distributed story point generator for remote teams.
+
+## Background
+
+As part of agile planning processes, the ability for each person to submit their story point estimate in a remote team.
+
+## Proposal
+
+The system would allow each participant to submit their story point estimate for a given story. The story points are averaged
+(or other algorithm) to provide an overall estimate.
+
+## Rationale
+
+Errrr. Cos it would be good...?
+
+## Implementation (if applicable)
+
+  * Remote console apps, connecting via gRPC.
+  * Central "server" sends out and collates the scores.
+  * Provides a web interface for results?
