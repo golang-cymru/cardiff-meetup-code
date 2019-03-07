@@ -22,3 +22,5 @@ The existing tool is written in Scala and as such is fairly inpenetratable to an
 ## Implementation (if applicable)
 
 Use the github graphql api
+
+Stub Gist: https://gist.github.com/necrophonic/522a6b64da7ca12ff2d3b9dbd49fa504
