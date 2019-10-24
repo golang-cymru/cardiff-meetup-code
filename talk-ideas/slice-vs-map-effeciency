@@ -1,0 +1,7 @@
+# Talk: Slice vs Map efficiency
+
+Speaker(s): J Gregory
+
+## Abstract
+
+A short lightning talk on effeciency of using slices and maps and some tricks for performance gains
